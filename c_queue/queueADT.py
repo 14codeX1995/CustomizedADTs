@@ -25,13 +25,14 @@ class Queue:
             print("Sorry, the queue is empty!")
             raise IndexError
         if self.front.next is None:
+            result=self.front
             self.front=None
             self.rear=None
         else:
             result=self.front
             self.front=self.front.next
-            del result
         self.size-=1
+        return result.data
 
     def print(self):
         temp=self.front
