@@ -76,14 +76,29 @@ class BinaryTree:
         self.printPostOrder(root.right)
         print(root.data,end=" ")
 
-'''
+    #search an element in the tree(return 1 if found else 0)
+    def search(self,root,data):
+        if root is None:
+            return 0
+        if root.data==data:
+            return 1
+        else:
+            temp=self.search(root.left,data)
+            if temp==1:
+                return 1
+            return self.search(root.right,data)
+
+
 t=BinaryTree()
 t.insertUsingLevelOrder(1)
 t.insertUsingLevelOrder(2)
 t.insertUsingLevelOrder(3)
 t.printLevelOrder(t.root)
 t.printPreOrder(t.root)
+print()
 t.printInOrder(t.root)
+print()
 t.printPostOrder(t.root)
+print()
+print(t.search(t.root,4))
 
-'''
