@@ -1,42 +1,46 @@
 from c_queue import queueADT
 
 class BinaryTreeNode:
+    #defines a node in the tree
     def __init__(self,data):
         self.data=data
         self.left=None
         self.right=None
 
 class BinaryTree:
+    #Binary Tree is definned with root(BinaryTreeNode type) as the data member
     def __init__(self,data=None):
         if data is None:
             self.root=None
         else:
             self.root=BinaryTreeNode(data)
 
-    def insertUsingLevelOrder(self,root, data):
+    #builds a tree in a simple level order fashion
+    def insertUsingLevelOrder(self,data):
         newNode=BinaryTreeNode(data)
-        print("newNode-> ",newNode.data)
-        if root is None:
-            root=newNode
-            return root
+        if self.root is None:
+            self.root=newNode
+            return
+        #every node is stored in a queue before processing
         que=queueADT.Queue()
-        que.enQueue(root)
+        que.enQueue(self.root)
         while(que.size!=0):
             node=que.deQueue()
             if node.left is not None:
                 que.enQueue(node.left)
             else:
                 node.left=newNode
-                return root
+                return
             if node.right is not None:
                 que.enQueue(node.right)
             else:
                 node.right=newNode
-                return root
+                return
 
+    #performs a level order print of nodes in a Binary Tree
     def printLevelOrder(self,root=None):
         if root is None:
-            print("Tree empty!")
+            return
         que=queueADT.Queue()
         que.enQueue(root)
         while(que.size!=0):
@@ -47,3 +51,39 @@ class BinaryTree:
             if node.right is not None:
                 que.enQueue(node.right)
         print()
+
+    #performs a preorder traversal on the tree
+    def printPreOrder(self,root=None):
+        if root is None:
+            return
+        print(root.data, end=" ")
+        self.printPreOrder(root.left)
+        self.printPreOrder(root.right)
+
+    #performs an inorder traversal on the tree
+    def printInOrder(self,root=None):
+        if root is None:
+            return
+        self.printInOrder(root.left)
+        print(root.data,end=" ")
+        self.printInOrder(root.right)
+
+    #performs a postorder traversal on the tree
+    def printPostOrder(self,root=None):
+        if root is None:
+            return
+        self.printPostOrder(root.left)
+        self.printPostOrder(root.right)
+        print(root.data,end=" ")
+
+'''
+t=BinaryTree()
+t.insertUsingLevelOrder(1)
+t.insertUsingLevelOrder(2)
+t.insertUsingLevelOrder(3)
+t.printLevelOrder(t.root)
+t.printPreOrder(t.root)
+t.printInOrder(t.root)
+t.printPostOrder(t.root)
+
+'''
